@@ -1,0 +1,30 @@
+gcc -c -Xpreprocessor -I/opt/local/include/libomp -L/opt/local/lib/libomp -lomp -w SpecFit.c Utilities.c -lgsl  -lm
+ar rcs libSpecFit.a SpecFit.o Utilities.o
+debnandinimukherjee@Debnandinis-MacBook-Air cython % python setup.py build_ext --inplace
+Compiling SpecFit.pyx because it changed.
+[1/1] Cythonizing SpecFit.pyx
+/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/Cython/Compiler/Main.py:369: FutureWarning: Cython directive 'language_level' not set, using 2 for now (Py2). This will change in a later release! File: /Users/debnandinimukherjee/Documents/non_paper_repos/LISA_Massive_Black_Hole/pythonize/cython/SpecFit.pyx
+  tree = Parsing.p_module(s, pxd, full_module_name)
+
+Error compiling Cython file:
+------------------------------------------------------------
+...
+	void qscanres(double *data, double *signal, double *Sn, double Tobs, int N)
+	void tukey(double *data, double alpha, int N)
+	void tukey_scale(double *s1, double *s2, double alpha, int N)
+	void pbt_shift(double *corr, double *corrf, double *data1, double *data2, double *Sn, int imin, int imax, int N)
+	double fourier_nwip(double *a, double *b, double *Sn, int imin, int imax, int N)
+	double globe(double ***global, double *max, double *min, double Tobs, double *params, int N, gsl_rng *r)
+                       ^
+------------------------------------------------------------
+
+SpecFit.pyx:10:24: Expected ')', found 'global'
+Traceback (most recent call last):
+  File "setup.py", line 14, in <module>
+    ext_modules=cythonize([SpecFit_extension])
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/Cython/Build/Dependencies.py", line 1102, in cythonize
+    cythonize_one(*args)
+  File "/opt/local/Library/Frameworks/Python.framework/Versions/3.8/lib/python3.8/site-packages/Cython/Build/Dependencies.py", line 1225, in cythonize_one
+    raise CompileError(None, pyx_file)
+Cython.Compiler.Errors.CompileError: SpecFit.pyx
+
