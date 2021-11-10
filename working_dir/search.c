@@ -55,7 +55,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 gsl_rng **rvec;
 //##############################################
 
-int main(int argc, char *argv[])
+//int main(int argc, char *argv[])
+int main_gut(int seg)
 {
     double phi0;
     double deltaF;
@@ -70,7 +71,8 @@ int main(int argc, char *argv[])
     double f, cp, sp, p, tshift;
     double cv, sv, v, A, dtm, tlength, t0;
     double logL;
-    int ret, seg;
+    //int ret, seg;
+    int ret;
     double *params, *pref, *zv;
     double *pmax;
     double HH, HD, DD;
@@ -105,14 +107,14 @@ int main(int argc, char *argv[])
     }
     //##############################################
     
-    if(argc<2)
-    {
-        printf("./search segment\n");
-        printf("segment numbers run from 0 to 12\n");
-        return 0;
-    }
+    //if(argc<2)
+    //{
+    //    printf("./search segment\n");
+    //    printf("segment numbers run from 0 to 12\n");
+    //    return 0;
+    //}
     
-    seg = atoi(argv[1]);
+    //seg = atoi(argv[1]);
     dt = 5.0;
     N = 524288;
     Tobs = (double)(N)*dt;
