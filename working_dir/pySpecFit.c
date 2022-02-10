@@ -4,20 +4,30 @@
 {
     "distutils": {
         "depends": [
-            "Utilities.h"
+            "lib/SpecFit.h"
         ],
         "include_dirs": [
-            "lib"
+            "lib",
+            "/opt/local/include/libomp",
+            "/opt/local/include/gsl",
+            "/opt/local/include"
         ],
         "libraries": [
-            "SpecFit"
+            "SpecFit",
+            "Utilities",
+            "omp",
+            "gsl",
+            "gslcblas"
         ],
         "library_dirs": [
-            "lib"
+            "lib",
+            "/opt/local/lib/libomp",
+            "/opt/local/lib"
         ],
         "name": "pySpecFit",
         "sources": [
-            "pySpecFit.pyx"
+            "pySpecFit.pyx",
+            "Utilities.c"
         ]
     },
     "module_name": "pySpecFit"
@@ -639,7 +649,7 @@ static CYTHON_INLINE float __PYX_NAN() {
 #define __PYX_HAVE__pySpecFit
 #define __PYX_HAVE_API__pySpecFit
 /* Early includes */
-#include "Utilities.h"
+#include "SpecFit.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -1070,50 +1080,50 @@ extern int __pyx_module_is_main_pySpecFit;
 int __pyx_module_is_main_pySpecFit = 0;
 
 /* Implementation of 'pySpecFit' */
-static const char __pyx_k_argc[] = "argc";
-static const char __pyx_k_argv[] = "argv";
+static const char __pyx_k_ch[] = "ch";
+static const char __pyx_k_file[] = "file";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_py_main[] = "py_main";
 static const char __pyx_k_pySpecFit[] = "pySpecFit";
+static const char __pyx_k_py_main_gut[] = "py_main_gut";
 static const char __pyx_k_pySpecFit_pyx[] = "pySpecFit.pyx";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
-static PyObject *__pyx_n_s_argc;
-static PyObject *__pyx_n_s_argv;
+static PyObject *__pyx_n_s_ch;
 static PyObject *__pyx_n_s_cline_in_traceback;
+static PyObject *__pyx_n_s_file;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
 static PyObject *__pyx_n_s_pySpecFit;
 static PyObject *__pyx_kp_s_pySpecFit_pyx;
-static PyObject *__pyx_n_s_py_main;
+static PyObject *__pyx_n_s_py_main_gut;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_9pySpecFit_py_main(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_argc, PyObject *__pyx_v_argv); /* proto */
+static PyObject *__pyx_pf_9pySpecFit_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file, int __pyx_v_ch); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 /* Late includes */
 
 /* "pySpecFit.pyx":4
- * 	int main(int argc, list argv)
+ * 	int main_gut(char *file, int ch)
  * 
- * def py_main(int argc, list argv):             # <<<<<<<<<<<<<<
- * 	main(argc, argv)
+ * def py_main_gut(bytes file, int ch):             # <<<<<<<<<<<<<<
+ * 	main_gut(file, ch)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_9pySpecFit_1py_main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
-static PyMethodDef __pyx_mdef_9pySpecFit_1py_main = {"py_main", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_9pySpecFit_1py_main, METH_VARARGS|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_9pySpecFit_1py_main(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
-  int __pyx_v_argc;
-  PyObject *__pyx_v_argv = 0;
+static PyObject *__pyx_pw_9pySpecFit_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_9pySpecFit_1py_main_gut = {"py_main_gut", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_9pySpecFit_1py_main_gut, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_9pySpecFit_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
+  PyObject *__pyx_v_file = 0;
+  int __pyx_v_ch;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("py_main (wrapper)", 0);
+  __Pyx_RefNannySetupContext("py_main_gut (wrapper)", 0);
   {
-    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_argc,&__pyx_n_s_argv,0};
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_file,&__pyx_n_s_ch,0};
     PyObject* values[2] = {0,0};
     if (unlikely(__pyx_kwds)) {
       Py_ssize_t kw_args;
@@ -1129,17 +1139,17 @@ static PyObject *__pyx_pw_9pySpecFit_1py_main(PyObject *__pyx_self, PyObject *__
       kw_args = PyDict_Size(__pyx_kwds);
       switch (pos_args) {
         case  0:
-        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_argc)) != 0)) kw_args--;
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_file)) != 0)) kw_args--;
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_argv)) != 0)) kw_args--;
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_ch)) != 0)) kw_args--;
         else {
-          __Pyx_RaiseArgtupleInvalid("py_main", 1, 2, 2, 1); __PYX_ERR(0, 4, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("py_main_gut", 1, 2, 2, 1); __PYX_ERR(0, 4, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_main") < 0)) __PYX_ERR(0, 4, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_main_gut") < 0)) __PYX_ERR(0, 4, __pyx_L3_error)
       }
     } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
       goto __pyx_L5_argtuple_error;
@@ -1147,19 +1157,19 @@ static PyObject *__pyx_pw_9pySpecFit_1py_main(PyObject *__pyx_self, PyObject *__
       values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
       values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
     }
-    __pyx_v_argc = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_argc == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 4, __pyx_L3_error)
-    __pyx_v_argv = ((PyObject*)values[1]);
+    __pyx_v_file = ((PyObject*)values[0]);
+    __pyx_v_ch = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_ch == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 4, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("py_main", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 4, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("py_main_gut", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 4, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pySpecFit.py_main", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pySpecFit.py_main_gut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_argv), (&PyList_Type), 1, "argv", 1))) __PYX_ERR(0, 4, __pyx_L1_error)
-  __pyx_r = __pyx_pf_9pySpecFit_py_main(__pyx_self, __pyx_v_argc, __pyx_v_argv);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_file), (&PyBytes_Type), 1, "file", 1))) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_r = __pyx_pf_9pySpecFit_py_main_gut(__pyx_self, __pyx_v_file, __pyx_v_ch);
 
   /* function exit code */
   goto __pyx_L0;
@@ -1170,27 +1180,41 @@ static PyObject *__pyx_pw_9pySpecFit_1py_main(PyObject *__pyx_self, PyObject *__
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_9pySpecFit_py_main(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_argc, PyObject *__pyx_v_argv) {
+static PyObject *__pyx_pf_9pySpecFit_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, PyObject *__pyx_v_file, int __pyx_v_ch) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("py_main", 0);
+  char *__pyx_t_1;
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  __Pyx_RefNannySetupContext("py_main_gut", 0);
 
   /* "pySpecFit.pyx":5
  * 
- * def py_main(int argc, list argv):
- * 	main(argc, argv)             # <<<<<<<<<<<<<<
+ * def py_main_gut(bytes file, int ch):
+ * 	main_gut(file, ch)             # <<<<<<<<<<<<<<
  */
-  (void)(main(__pyx_v_argc, __pyx_v_argv));
+  if (unlikely(__pyx_v_file == Py_None)) {
+    PyErr_SetString(PyExc_TypeError, "expected bytes, NoneType found");
+    __PYX_ERR(0, 5, __pyx_L1_error)
+  }
+  __pyx_t_1 = __Pyx_PyBytes_AsWritableString(__pyx_v_file); if (unlikely((!__pyx_t_1) && PyErr_Occurred())) __PYX_ERR(0, 5, __pyx_L1_error)
+  (void)(main_gut(__pyx_t_1, __pyx_v_ch));
 
   /* "pySpecFit.pyx":4
- * 	int main(int argc, list argv)
+ * 	int main_gut(char *file, int ch)
  * 
- * def py_main(int argc, list argv):             # <<<<<<<<<<<<<<
- * 	main(argc, argv)
+ * def py_main_gut(bytes file, int ch):             # <<<<<<<<<<<<<<
+ * 	main_gut(file, ch)
  */
 
   /* function exit code */
   __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __Pyx_AddTraceback("pySpecFit.py_main_gut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __pyx_r = NULL;
+  __pyx_L0:;
   __Pyx_XGIVEREF(__pyx_r);
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
@@ -1242,14 +1266,14 @@ static struct PyModuleDef __pyx_moduledef = {
 #endif
 
 static __Pyx_StringTabEntry __pyx_string_tab[] = {
-  {&__pyx_n_s_argc, __pyx_k_argc, sizeof(__pyx_k_argc), 0, 0, 1, 1},
-  {&__pyx_n_s_argv, __pyx_k_argv, sizeof(__pyx_k_argv), 0, 0, 1, 1},
+  {&__pyx_n_s_ch, __pyx_k_ch, sizeof(__pyx_k_ch), 0, 0, 1, 1},
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
+  {&__pyx_n_s_file, __pyx_k_file, sizeof(__pyx_k_file), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
   {&__pyx_n_s_pySpecFit, __pyx_k_pySpecFit, sizeof(__pyx_k_pySpecFit), 0, 0, 1, 1},
   {&__pyx_kp_s_pySpecFit_pyx, __pyx_k_pySpecFit_pyx, sizeof(__pyx_k_pySpecFit_pyx), 0, 0, 1, 0},
-  {&__pyx_n_s_py_main, __pyx_k_py_main, sizeof(__pyx_k_py_main), 0, 0, 1, 1},
+  {&__pyx_n_s_py_main_gut, __pyx_k_py_main_gut, sizeof(__pyx_k_py_main_gut), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
 };
@@ -1262,15 +1286,15 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
   /* "pySpecFit.pyx":4
- * 	int main(int argc, list argv)
+ * 	int main_gut(char *file, int ch)
  * 
- * def py_main(int argc, list argv):             # <<<<<<<<<<<<<<
- * 	main(argc, argv)
+ * def py_main_gut(bytes file, int ch):             # <<<<<<<<<<<<<<
+ * 	main_gut(file, ch)
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_argc, __pyx_n_s_argv); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_file, __pyx_n_s_ch); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pySpecFit_pyx, __pyx_n_s_py_main, 4, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pySpecFit_pyx, __pyx_n_s_py_main_gut, 4, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1550,19 +1574,19 @@ if (!__Pyx_RefNanny) {
   #endif
 
   /* "pySpecFit.pyx":4
- * 	int main(int argc, list argv)
+ * 	int main_gut(char *file, int ch)
  * 
- * def py_main(int argc, list argv):             # <<<<<<<<<<<<<<
- * 	main(argc, argv)
+ * def py_main_gut(bytes file, int ch):             # <<<<<<<<<<<<<<
+ * 	main_gut(file, ch)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9pySpecFit_1py_main, NULL, __pyx_n_s_pySpecFit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_9pySpecFit_1py_main_gut, NULL, __pyx_n_s_pySpecFit); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_py_main, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_py_main_gut, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
   /* "pySpecFit.pyx":1
- * cdef extern from "Utilities.h":             # <<<<<<<<<<<<<<
- * 	int main(int argc, list argv)
+ * cdef extern from "SpecFit.h":             # <<<<<<<<<<<<<<
+ * 	int main_gut(char *file, int ch)
  * 
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)

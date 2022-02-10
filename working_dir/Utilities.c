@@ -998,7 +998,7 @@ double det(double *A, int N)
     }
     
     // Compute the LU decomposition of this matrix
-    gsl_linalg_LU_decomp(m, p, &s);
+    //gsl_linalg_LU_decomp(m, p, &s);
     
     dx = 1.0;
     for (i = 0; i < N; i++) dx *= gsl_matrix_get (m, i, i);

@@ -34,7 +34,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include <time.h>
 
 #include "Declarations.h"
-
+#include "PTMCMC.h"
 #ifndef _OPENMP
 #define omp ignore
 #endif
@@ -54,7 +54,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 gsl_rng **rvec;
 //##############################################
 
-int main(int argc,char **argv)
+//int main(int argc,char **argv)
+int main_gut(int seg, int rep)
 {
 
   double f, fdot, theta, phi, A, iota, psi, phase;
@@ -79,7 +80,7 @@ int main(int argc,char **argv)
     
   double *AC, *EC, *TC;
     
-    int seg, rep;
+    //int seg, rep;
     
     
     clock_t start, end;
@@ -116,16 +117,16 @@ int main(int argc,char **argv)
     
     // setting the segment # to -1 causes the code to use the full data set
     
-    if(argc<3)
-    {
-        printf("./PTMCMC segment# source#\n");
-        printf("segment numbers run from 0 to 12\n");
-        printf("source numbers start at 0\n");
-        return 0;
-    }
+    //if(argc<3)
+    //{
+        //printf("./PTMCMC segment# source#\n");
+        //printf("segment numbers run from 0 to 12\n");
+        //printf("source numbers start at 0\n");
+        //return 0;
+    //}
     
-    seg = atoi(argv[1]);
-    rep = atoi(argv[2]);
+    //seg = atoi(argv[1]);
+    //rep = atoi(argv[2]);
     
     if(seg > 0)
     {
@@ -276,18 +277,20 @@ int main(int argc,char **argv)
     else // Do a noise-free run on the parameters provided (if looping over a catalog, have the parameters copied into source.dat
     {
         
-        if(argc<3)
-           {
-               printf("./PTMCMC Tobs cadence\n");
+        //if(argc<3)
+           //{
+               //printf("./PTMCMC Tobs cadence\n");
                // typical cadence is around 5 seconds.
-               return 0;
-           }
+               //return 0;
+           //}
           
-           dat->Tobs = atof(argv[1]);
+           //dat->Tobs = atof(argv[1]);
+           dat->Tobs = (double)seg;
            dat->sqrtTobs = sqrt(dat->Tobs);
            dat->Tstart = 0.0;
            dat->Tend = dat->Tobs;
-           dat->dt = atof(argv[2]);
+           //dat->dt = atof(argv[2]);
+           dat->dt = (double)rep;
            dat->Nch = 2;  // only analyze A, E
            dat->N = (int)(dat->Tobs/dat->dt);
            dat->SN = double_matrix(dat->Nch,dat->N/2);

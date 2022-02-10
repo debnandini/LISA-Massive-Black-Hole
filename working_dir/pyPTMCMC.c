@@ -4,7 +4,7 @@
 {
     "distutils": {
         "depends": [
-            "lib/search.h"
+            "lib/PTMCMC.h"
         ],
         "include_dirs": [
             "lib",
@@ -13,7 +13,9 @@
             "/opt/local/include"
         ],
         "libraries": [
-            "search",
+            "PTMCMC",
+            "Utils",
+            "Response",
             "IMRPhenomD_internals",
             "IMRPhenomD",
             "omp",
@@ -25,14 +27,16 @@
             "/opt/local/lib/libomp",
             "/opt/local/lib"
         ],
-        "name": "pysearch",
+        "name": "pyPTMCMC",
         "sources": [
-            "pysearch.pyx",
+            "pyPTMCMC.pyx",
+            "Utils.c",
+            "Response.c",
             "IMRPhenomD_internals.c",
             "IMRPhenomD.c"
         ]
     },
-    "module_name": "pysearch"
+    "module_name": "pyPTMCMC"
 }
 END: Cython Metadata */
 
@@ -648,10 +652,10 @@ static CYTHON_INLINE float __PYX_NAN() {
   #endif
 #endif
 
-#define __PYX_HAVE__pysearch
-#define __PYX_HAVE_API__pysearch
+#define __PYX_HAVE__pyPTMCMC
+#define __PYX_HAVE_API__pyPTMCMC
 /* Early includes */
-#include "search.h"
+#include "PTMCMC.h"
 #ifdef _OPENMP
 #include <omp.h>
 #endif /* _OPENMP */
@@ -860,7 +864,7 @@ static const char *__pyx_filename;
 
 
 static const char *__pyx_f[] = {
-  "pysearch.pyx",
+  "pyPTMCMC.pyx",
 };
 
 /*--- Type declarations ---*/
@@ -928,6 +932,18 @@ static const char *__pyx_f[] = {
     } while (0)
 #define __Pyx_CLEAR(r)    do { PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);} while(0)
 #define __Pyx_XCLEAR(r)   do { if((r) != NULL) {PyObject* tmp = ((PyObject*)(r)); r = NULL; __Pyx_DECREF(tmp);}} while(0)
+
+/* RaiseArgTupleInvalid.proto */
+static void __Pyx_RaiseArgtupleInvalid(const char* func_name, int exact,
+    Py_ssize_t num_min, Py_ssize_t num_max, Py_ssize_t num_found);
+
+/* RaiseDoubleKeywords.proto */
+static void __Pyx_RaiseDoubleKeywordsError(const char* func_name, PyObject* kw_name);
+
+/* ParseKeywords.proto */
+static int __Pyx_ParseOptionalKeywords(PyObject *kwds, PyObject **argnames[],\
+    PyObject *kwds2, PyObject *values[], Py_ssize_t num_pos_args,\
+    const char* function_name);
 
 /* PyDictVersioning.proto */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS
@@ -1058,84 +1074,124 @@ static int __Pyx_check_binary_version(void);
 static int __Pyx_InitStrings(__Pyx_StringTabEntry *t);
 
 
-/* Module declarations from 'pysearch' */
-#define __Pyx_MODULE_NAME "pysearch"
-extern int __pyx_module_is_main_pysearch;
-int __pyx_module_is_main_pysearch = 0;
+/* Module declarations from 'pyPTMCMC' */
+#define __Pyx_MODULE_NAME "pyPTMCMC"
+extern int __pyx_module_is_main_pyPTMCMC;
+int __pyx_module_is_main_pyPTMCMC = 0;
 
-/* Implementation of 'pysearch' */
+/* Implementation of 'pyPTMCMC' */
+static const char __pyx_k_rep[] = "rep";
 static const char __pyx_k_seg[] = "seg";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
 static const char __pyx_k_test[] = "__test__";
-static const char __pyx_k_pysearch[] = "pysearch";
+static const char __pyx_k_pyPTMCMC[] = "pyPTMCMC";
 static const char __pyx_k_py_main_gut[] = "py_main_gut";
-static const char __pyx_k_pysearch_pyx[] = "pysearch.pyx";
+static const char __pyx_k_pyPTMCMC_pyx[] = "pyPTMCMC.pyx";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
 static PyObject *__pyx_n_s_cline_in_traceback;
 static PyObject *__pyx_n_s_main;
 static PyObject *__pyx_n_s_name;
+static PyObject *__pyx_n_s_pyPTMCMC;
+static PyObject *__pyx_kp_s_pyPTMCMC_pyx;
 static PyObject *__pyx_n_s_py_main_gut;
-static PyObject *__pyx_n_s_pysearch;
-static PyObject *__pyx_kp_s_pysearch_pyx;
+static PyObject *__pyx_n_s_rep;
 static PyObject *__pyx_n_s_seg;
 static PyObject *__pyx_n_s_test;
-static PyObject *__pyx_pf_8pysearch_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_seg); /* proto */
+static PyObject *__pyx_pf_8pyPTMCMC_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_seg, int __pyx_v_rep); /* proto */
 static PyObject *__pyx_tuple_;
 static PyObject *__pyx_codeobj__2;
 /* Late includes */
 
-/* "pysearch.pyx":4
- * 	int main_gut(int seg)
+/* "pyPTMCMC.pyx":4
+ * 	int main_gut(int seg, int rep)
  * 
- * def py_main_gut(int seg):             # <<<<<<<<<<<<<<
- * 	main_gut(seg)
+ * def py_main_gut(int seg, int rep):             # <<<<<<<<<<<<<<
+ * 	main_gut(seg, rep)
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_8pysearch_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_arg_seg); /*proto*/
-static PyMethodDef __pyx_mdef_8pysearch_1py_main_gut = {"py_main_gut", (PyCFunction)__pyx_pw_8pysearch_1py_main_gut, METH_O, 0};
-static PyObject *__pyx_pw_8pysearch_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_arg_seg) {
+static PyObject *__pyx_pw_8pyPTMCMC_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds); /*proto*/
+static PyMethodDef __pyx_mdef_8pyPTMCMC_1py_main_gut = {"py_main_gut", (PyCFunction)(void*)(PyCFunctionWithKeywords)__pyx_pw_8pyPTMCMC_1py_main_gut, METH_VARARGS|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_8pyPTMCMC_1py_main_gut(PyObject *__pyx_self, PyObject *__pyx_args, PyObject *__pyx_kwds) {
   int __pyx_v_seg;
+  int __pyx_v_rep;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("py_main_gut (wrapper)", 0);
-  assert(__pyx_arg_seg); {
-    __pyx_v_seg = __Pyx_PyInt_As_int(__pyx_arg_seg); if (unlikely((__pyx_v_seg == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 4, __pyx_L3_error)
+  {
+    static PyObject **__pyx_pyargnames[] = {&__pyx_n_s_seg,&__pyx_n_s_rep,0};
+    PyObject* values[2] = {0,0};
+    if (unlikely(__pyx_kwds)) {
+      Py_ssize_t kw_args;
+      const Py_ssize_t pos_args = PyTuple_GET_SIZE(__pyx_args);
+      switch (pos_args) {
+        case  2: values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = PyDict_Size(__pyx_kwds);
+      switch (pos_args) {
+        case  0:
+        if (likely((values[0] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_seg)) != 0)) kw_args--;
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_PyDict_GetItemStr(__pyx_kwds, __pyx_n_s_rep)) != 0)) kw_args--;
+        else {
+          __Pyx_RaiseArgtupleInvalid("py_main_gut", 1, 2, 2, 1); __PYX_ERR(0, 4, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_pyargnames, 0, values, pos_args, "py_main_gut") < 0)) __PYX_ERR(0, 4, __pyx_L3_error)
+      }
+    } else if (PyTuple_GET_SIZE(__pyx_args) != 2) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = PyTuple_GET_ITEM(__pyx_args, 0);
+      values[1] = PyTuple_GET_ITEM(__pyx_args, 1);
+    }
+    __pyx_v_seg = __Pyx_PyInt_As_int(values[0]); if (unlikely((__pyx_v_seg == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 4, __pyx_L3_error)
+    __pyx_v_rep = __Pyx_PyInt_As_int(values[1]); if (unlikely((__pyx_v_rep == (int)-1) && PyErr_Occurred())) __PYX_ERR(0, 4, __pyx_L3_error)
   }
   goto __pyx_L4_argument_unpacking_done;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("py_main_gut", 1, 2, 2, PyTuple_GET_SIZE(__pyx_args)); __PYX_ERR(0, 4, __pyx_L3_error)
   __pyx_L3_error:;
-  __Pyx_AddTraceback("pysearch.py_main_gut", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyPTMCMC.py_main_gut", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  __pyx_r = __pyx_pf_8pysearch_py_main_gut(__pyx_self, ((int)__pyx_v_seg));
+  __pyx_r = __pyx_pf_8pyPTMCMC_py_main_gut(__pyx_self, __pyx_v_seg, __pyx_v_rep);
 
   /* function exit code */
   __Pyx_RefNannyFinishContext();
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_8pysearch_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_seg) {
+static PyObject *__pyx_pf_8pyPTMCMC_py_main_gut(CYTHON_UNUSED PyObject *__pyx_self, int __pyx_v_seg, int __pyx_v_rep) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("py_main_gut", 0);
 
-  /* "pysearch.pyx":5
+  /* "pyPTMCMC.pyx":5
  * 
- * def py_main_gut(int seg):
- * 	main_gut(seg)             # <<<<<<<<<<<<<<
+ * def py_main_gut(int seg, int rep):
+ * 	main_gut(seg, rep)             # <<<<<<<<<<<<<<
  */
-  (void)(main_gut(__pyx_v_seg));
+  (void)(main_gut(__pyx_v_seg, __pyx_v_rep));
 
-  /* "pysearch.pyx":4
- * 	int main_gut(int seg)
+  /* "pyPTMCMC.pyx":4
+ * 	int main_gut(int seg, int rep)
  * 
- * def py_main_gut(int seg):             # <<<<<<<<<<<<<<
- * 	main_gut(seg)
+ * def py_main_gut(int seg, int rep):             # <<<<<<<<<<<<<<
+ * 	main_gut(seg, rep)
  */
 
   /* function exit code */
@@ -1152,17 +1208,17 @@ static PyMethodDef __pyx_methods[] = {
 #if PY_MAJOR_VERSION >= 3
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 static PyObject* __pyx_pymod_create(PyObject *spec, PyModuleDef *def); /*proto*/
-static int __pyx_pymod_exec_pysearch(PyObject* module); /*proto*/
+static int __pyx_pymod_exec_pyPTMCMC(PyObject* module); /*proto*/
 static PyModuleDef_Slot __pyx_moduledef_slots[] = {
   {Py_mod_create, (void*)__pyx_pymod_create},
-  {Py_mod_exec, (void*)__pyx_pymod_exec_pysearch},
+  {Py_mod_exec, (void*)__pyx_pymod_exec_pyPTMCMC},
   {0, NULL}
 };
 #endif
 
 static struct PyModuleDef __pyx_moduledef = {
     PyModuleDef_HEAD_INIT,
-    "pysearch",
+    "pyPTMCMC",
     0, /* m_doc */
   #if CYTHON_PEP489_MULTI_PHASE_INIT
     0, /* m_size */
@@ -1194,9 +1250,10 @@ static __Pyx_StringTabEntry __pyx_string_tab[] = {
   {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
   {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
   {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
+  {&__pyx_n_s_pyPTMCMC, __pyx_k_pyPTMCMC, sizeof(__pyx_k_pyPTMCMC), 0, 0, 1, 1},
+  {&__pyx_kp_s_pyPTMCMC_pyx, __pyx_k_pyPTMCMC_pyx, sizeof(__pyx_k_pyPTMCMC_pyx), 0, 0, 1, 0},
   {&__pyx_n_s_py_main_gut, __pyx_k_py_main_gut, sizeof(__pyx_k_py_main_gut), 0, 0, 1, 1},
-  {&__pyx_n_s_pysearch, __pyx_k_pysearch, sizeof(__pyx_k_pysearch), 0, 0, 1, 1},
-  {&__pyx_kp_s_pysearch_pyx, __pyx_k_pysearch_pyx, sizeof(__pyx_k_pysearch_pyx), 0, 0, 1, 0},
+  {&__pyx_n_s_rep, __pyx_k_rep, sizeof(__pyx_k_rep), 0, 0, 1, 1},
   {&__pyx_n_s_seg, __pyx_k_seg, sizeof(__pyx_k_seg), 0, 0, 1, 1},
   {&__pyx_n_s_test, __pyx_k_test, sizeof(__pyx_k_test), 0, 0, 1, 1},
   {0, 0, 0, 0, 0, 0, 0}
@@ -1209,16 +1266,16 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("__Pyx_InitCachedConstants", 0);
 
-  /* "pysearch.pyx":4
- * 	int main_gut(int seg)
+  /* "pyPTMCMC.pyx":4
+ * 	int main_gut(int seg, int rep)
  * 
- * def py_main_gut(int seg):             # <<<<<<<<<<<<<<
- * 	main_gut(seg)
+ * def py_main_gut(int seg, int rep):             # <<<<<<<<<<<<<<
+ * 	main_gut(seg, rep)
  */
-  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_seg, __pyx_n_s_seg); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_tuple_ = PyTuple_Pack(2, __pyx_n_s_seg, __pyx_n_s_rep); if (unlikely(!__pyx_tuple_)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple_);
   __Pyx_GIVEREF(__pyx_tuple_);
-  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(1, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pysearch_pyx, __pyx_n_s_py_main_gut, 4, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_codeobj__2 = (PyObject*)__Pyx_PyCode_New(2, 0, 2, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple_, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyPTMCMC_pyx, __pyx_n_s_py_main_gut, 4, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__2)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -1316,11 +1373,11 @@ static int __Pyx_modinit_function_import_code(void) {
 
 
 #if PY_MAJOR_VERSION < 3
-__Pyx_PyMODINIT_FUNC initpysearch(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC initpysearch(void)
+__Pyx_PyMODINIT_FUNC initpyPTMCMC(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC initpyPTMCMC(void)
 #else
-__Pyx_PyMODINIT_FUNC PyInit_pysearch(void) CYTHON_SMALL_CODE; /*proto*/
-__Pyx_PyMODINIT_FUNC PyInit_pysearch(void)
+__Pyx_PyMODINIT_FUNC PyInit_pyPTMCMC(void) CYTHON_SMALL_CODE; /*proto*/
+__Pyx_PyMODINIT_FUNC PyInit_pyPTMCMC(void)
 #if CYTHON_PEP489_MULTI_PHASE_INIT
 {
   return PyModuleDef_Init(&__pyx_moduledef);
@@ -1387,7 +1444,7 @@ bad:
 }
 
 
-static CYTHON_SMALL_CODE int __pyx_pymod_exec_pysearch(PyObject *__pyx_pyinit_module)
+static CYTHON_SMALL_CODE int __pyx_pymod_exec_pyPTMCMC(PyObject *__pyx_pyinit_module)
 #endif
 #endif
 {
@@ -1399,7 +1456,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_pysearch(PyObject *__pyx_pyinit_mo
   #if CYTHON_PEP489_MULTI_PHASE_INIT
   if (__pyx_m) {
     if (__pyx_m == __pyx_pyinit_module) return 0;
-    PyErr_SetString(PyExc_RuntimeError, "Module 'pysearch' has already been imported. Re-initialisation is not supported.");
+    PyErr_SetString(PyExc_RuntimeError, "Module 'pyPTMCMC' has already been imported. Re-initialisation is not supported.");
     return -1;
   }
   #elif PY_MAJOR_VERSION >= 3
@@ -1414,7 +1471,7 @@ if (!__Pyx_RefNanny) {
       Py_FatalError("failed to import 'refnanny' module");
 }
 #endif
-  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_pysearch(void)", 0);
+  __Pyx_RefNannySetupContext("__Pyx_PyMODINIT_FUNC PyInit_pyPTMCMC(void)", 0);
   if (__Pyx_check_binary_version() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #ifdef __Pxy_PyFrame_Initialize_Offsets
   __Pxy_PyFrame_Initialize_Offsets();
@@ -1451,7 +1508,7 @@ if (!__Pyx_RefNanny) {
   Py_INCREF(__pyx_m);
   #else
   #if PY_MAJOR_VERSION < 3
-  __pyx_m = Py_InitModule4("pysearch", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
+  __pyx_m = Py_InitModule4("pyPTMCMC", __pyx_methods, 0, 0, PYTHON_API_VERSION); Py_XINCREF(__pyx_m);
   #else
   __pyx_m = PyModule_Create(&__pyx_moduledef);
   #endif
@@ -1469,14 +1526,14 @@ if (!__Pyx_RefNanny) {
   #if PY_MAJOR_VERSION < 3 && (__PYX_DEFAULT_STRING_ENCODING_IS_ASCII || __PYX_DEFAULT_STRING_ENCODING_IS_DEFAULT)
   if (__Pyx_init_sys_getdefaultencoding_params() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
-  if (__pyx_module_is_main_pysearch) {
+  if (__pyx_module_is_main_pyPTMCMC) {
     if (PyObject_SetAttr(__pyx_m, __pyx_n_s_name, __pyx_n_s_main) < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   }
   #if PY_MAJOR_VERSION >= 3
   {
     PyObject *modules = PyImport_GetModuleDict(); if (unlikely(!modules)) __PYX_ERR(0, 1, __pyx_L1_error)
-    if (!PyDict_GetItemString(modules, "pysearch")) {
-      if (unlikely(PyDict_SetItemString(modules, "pysearch", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
+    if (!PyDict_GetItemString(modules, "pyPTMCMC")) {
+      if (unlikely(PyDict_SetItemString(modules, "pyPTMCMC", __pyx_m) < 0)) __PYX_ERR(0, 1, __pyx_L1_error)
     }
   }
   #endif
@@ -1497,20 +1554,20 @@ if (!__Pyx_RefNanny) {
   if (__Pyx_patch_abc() < 0) __PYX_ERR(0, 1, __pyx_L1_error)
   #endif
 
-  /* "pysearch.pyx":4
- * 	int main_gut(int seg)
+  /* "pyPTMCMC.pyx":4
+ * 	int main_gut(int seg, int rep)
  * 
- * def py_main_gut(int seg):             # <<<<<<<<<<<<<<
- * 	main_gut(seg)
+ * def py_main_gut(int seg, int rep):             # <<<<<<<<<<<<<<
+ * 	main_gut(seg, rep)
  */
-  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_8pysearch_1py_main_gut, NULL, __pyx_n_s_pysearch); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
+  __pyx_t_1 = PyCFunction_NewEx(&__pyx_mdef_8pyPTMCMC_1py_main_gut, NULL, __pyx_n_s_pyPTMCMC); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_1);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_py_main_gut, __pyx_t_1) < 0) __PYX_ERR(0, 4, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_1); __pyx_t_1 = 0;
 
-  /* "pysearch.pyx":1
- * cdef extern from "search.h":             # <<<<<<<<<<<<<<
- * 	int main_gut(int seg)
+  /* "pyPTMCMC.pyx":1
+ * cdef extern from "PTMCMC.h":             # <<<<<<<<<<<<<<
+ * 	int main_gut(int seg, int rep)
  * 
  */
   __pyx_t_1 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_1)) __PYX_ERR(0, 1, __pyx_L1_error)
@@ -1525,11 +1582,11 @@ if (!__Pyx_RefNanny) {
   __Pyx_XDECREF(__pyx_t_1);
   if (__pyx_m) {
     if (__pyx_d) {
-      __Pyx_AddTraceback("init pysearch", __pyx_clineno, __pyx_lineno, __pyx_filename);
+      __Pyx_AddTraceback("init pyPTMCMC", __pyx_clineno, __pyx_lineno, __pyx_filename);
     }
     Py_CLEAR(__pyx_m);
   } else if (!PyErr_Occurred()) {
-    PyErr_SetString(PyExc_ImportError, "init pysearch");
+    PyErr_SetString(PyExc_ImportError, "init pyPTMCMC");
   }
   __pyx_L0:;
   __Pyx_RefNannyFinishContext();
@@ -1559,6 +1616,148 @@ end:
     return (__Pyx_RefNannyAPIStruct *)r;
 }
 #endif
+
+/* RaiseArgTupleInvalid */
+static void __Pyx_RaiseArgtupleInvalid(
+    const char* func_name,
+    int exact,
+    Py_ssize_t num_min,
+    Py_ssize_t num_max,
+    Py_ssize_t num_found)
+{
+    Py_ssize_t num_expected;
+    const char *more_or_less;
+    if (num_found < num_min) {
+        num_expected = num_min;
+        more_or_less = "at least";
+    } else {
+        num_expected = num_max;
+        more_or_less = "at most";
+    }
+    if (exact) {
+        more_or_less = "exactly";
+    }
+    PyErr_Format(PyExc_TypeError,
+                 "%.200s() takes %.8s %" CYTHON_FORMAT_SSIZE_T "d positional argument%.1s (%" CYTHON_FORMAT_SSIZE_T "d given)",
+                 func_name, more_or_less, num_expected,
+                 (num_expected == 1) ? "" : "s", num_found);
+}
+
+/* RaiseDoubleKeywords */
+static void __Pyx_RaiseDoubleKeywordsError(
+    const char* func_name,
+    PyObject* kw_name)
+{
+    PyErr_Format(PyExc_TypeError,
+        #if PY_MAJOR_VERSION >= 3
+        "%s() got multiple values for keyword argument '%U'", func_name, kw_name);
+        #else
+        "%s() got multiple values for keyword argument '%s'", func_name,
+        PyString_AsString(kw_name));
+        #endif
+}
+
+/* ParseKeywords */
+static int __Pyx_ParseOptionalKeywords(
+    PyObject *kwds,
+    PyObject **argnames[],
+    PyObject *kwds2,
+    PyObject *values[],
+    Py_ssize_t num_pos_args,
+    const char* function_name)
+{
+    PyObject *key = 0, *value = 0;
+    Py_ssize_t pos = 0;
+    PyObject*** name;
+    PyObject*** first_kw_arg = argnames + num_pos_args;
+    while (PyDict_Next(kwds, &pos, &key, &value)) {
+        name = first_kw_arg;
+        while (*name && (**name != key)) name++;
+        if (*name) {
+            values[name-argnames] = value;
+            continue;
+        }
+        name = first_kw_arg;
+        #if PY_MAJOR_VERSION < 3
+        if (likely(PyString_Check(key))) {
+            while (*name) {
+                if ((CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**name) == PyString_GET_SIZE(key))
+                        && _PyString_Eq(**name, key)) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    if ((**argname == key) || (
+                            (CYTHON_COMPILING_IN_PYPY || PyString_GET_SIZE(**argname) == PyString_GET_SIZE(key))
+                             && _PyString_Eq(**argname, key))) {
+                        goto arg_passed_twice;
+                    }
+                    argname++;
+                }
+            }
+        } else
+        #endif
+        if (likely(PyUnicode_Check(key))) {
+            while (*name) {
+                int cmp = (**name == key) ? 0 :
+                #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                    (__Pyx_PyUnicode_GET_LENGTH(**name) != __Pyx_PyUnicode_GET_LENGTH(key)) ? 1 :
+                #endif
+                    PyUnicode_Compare(**name, key);
+                if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                if (cmp == 0) {
+                    values[name-argnames] = value;
+                    break;
+                }
+                name++;
+            }
+            if (*name) continue;
+            else {
+                PyObject*** argname = argnames;
+                while (argname != first_kw_arg) {
+                    int cmp = (**argname == key) ? 0 :
+                    #if !CYTHON_COMPILING_IN_PYPY && PY_MAJOR_VERSION >= 3
+                        (__Pyx_PyUnicode_GET_LENGTH(**argname) != __Pyx_PyUnicode_GET_LENGTH(key)) ? 1 :
+                    #endif
+                        PyUnicode_Compare(**argname, key);
+                    if (cmp < 0 && unlikely(PyErr_Occurred())) goto bad;
+                    if (cmp == 0) goto arg_passed_twice;
+                    argname++;
+                }
+            }
+        } else
+            goto invalid_keyword_type;
+        if (kwds2) {
+            if (unlikely(PyDict_SetItem(kwds2, key, value))) goto bad;
+        } else {
+            goto invalid_keyword;
+        }
+    }
+    return 0;
+arg_passed_twice:
+    __Pyx_RaiseDoubleKeywordsError(function_name, key);
+    goto bad;
+invalid_keyword_type:
+    PyErr_Format(PyExc_TypeError,
+        "%.200s() keywords must be strings", function_name);
+    goto bad;
+invalid_keyword:
+    PyErr_Format(PyExc_TypeError,
+    #if PY_MAJOR_VERSION < 3
+        "%.200s() got an unexpected keyword argument '%.200s'",
+        function_name, PyString_AsString(key));
+    #else
+        "%s() got an unexpected keyword argument '%U'",
+        function_name, key);
+    #endif
+bad:
+    return -1;
+}
 
 /* PyDictVersioning */
 #if CYTHON_USE_DICT_VERSIONS && CYTHON_USE_TYPE_SLOTS

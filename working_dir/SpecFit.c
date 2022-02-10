@@ -24,6 +24,7 @@
 #include <time.h>
 #include "Utilities.h"
 #include "ConstSpec.h"
+#include "SpecFit.h"
 
 #ifndef _OPENMP
 #define omp ignore
@@ -42,7 +43,8 @@ static const gsl_rng *rng;
 
 
 
-int main(int argc, char *argv[])
+//int main(int argc, char *argv[])
+int main_gut(char *file, int ch)
 {
 
   int i, j, k, kk, ND, N, Ns, Nm, m, mc, dec;
@@ -61,7 +63,8 @@ int main(int argc, char *argv[])
   int ii, flag, Nlines;
   double xold, xnext, Abar;
   double max;
-  int Nspline, ch;
+  //int Nspline, ch;
+  int Nspline;
 
    double dfmin;  // minimum spline spacing
    double dfmax;  // maximum spline spacing
@@ -84,15 +87,16 @@ int main(int argc, char *argv[])
   FILE *in;
   FILE *out;
     
-    if(argc!=3)
-    {
-        printf("./SpecFit filename channel\n");
-        return 1;
-    }
+    //if(argc!=3)
+    //{
+        //printf("./SpecFit filename channel\n");
+        //return 1;
+    //}
     
-    ch = atoi(argv[2]);
+    //ch = atoi(argv[2]);
     
-      in = fopen(argv[1],"r");
+      //in = fopen(argv[1],"r");
+      in = fopen(file,"r");
        N = -1;
        while(!feof(in))
        {
